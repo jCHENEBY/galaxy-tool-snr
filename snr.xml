@@ -1,0 +1,30 @@
+<tool id="snr" name="Tool designed to calculate the Signal-to-Noise Ratio" version="1.0.0">
+    <description>
+        Tool designed to calculate the Signal-to-Noise Ratio (SNR) for medical images
+    </description>
+    <requirements>
+        <requirement type="package" version="25.1.0">black</requirement>
+        <requirement type="package" version="8.1.8">click</requirement>
+        <requirement type="package" version="0.4.6">colorama</requirement>
+        <requirement type="package" version="7.1.2">flake8</requirement>
+        <requirement type="package" version="0.7.0">mccabe</requirement>
+        <requirement type="package" version="1.0.0">mypy-extensions</requirement>
+        <requirement type="package" version="2.2.3">numpy</requirement>
+        <requirement type="package" version="24.2">packaging</requirement>
+        <requirement type="package" version="0.12.1">pathspec</requirement>
+        <requirement type="package" version="4.3.6">platformdirs</requirement>
+        <requirement type="package" version="2.12.1">pycodestyle</requirement>
+        <requirement type="package" version="3.0.1">pydicom</requirement>
+        <requirement type="package" version="3.2.0">pyflakes</requirement>
+        <requirement type="package" version="6.8.0.2">PySide6</requirement>
+        <requirement type="package" version="6.8.0.2">PySide6_Addons</requirement>
+        <requirement type="package" version="6.8.0.2">PySide6_Essentials</requirement>
+        <requirement type="package" version="6.8.0.2">shiboken6</requirement>
+    </requirements>
+    <inputs>
+        <param name="image" type="data" format="image" label="Image" help="The image to calculate the SNR" />
+    </inputs>
+    <outputs>
+        <data name="snr" format="txt" />
+    </outputs>
+</tool>
