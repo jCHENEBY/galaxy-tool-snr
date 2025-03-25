@@ -22,7 +22,7 @@
         <requirement type="package" version="6.8.0.2">shiboken6</requirement>
     </requirements>
     <inputs>
-        <param name="dcm" type="data_collection" label="DCM collection" help="The image to calculate the SNR" />
+        <param name="dcm" type="file" label="DCM collection" help="The image to calculate the SNR" />
     </inputs>
     <outputs>
         <data name="snr" format="txt" />
