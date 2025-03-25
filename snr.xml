@@ -2,13 +2,13 @@
     <description>
         Tool designed to calculate the Signal-to-Noise Ratio (SNR) for medical images
     </description>
+    <command interpreter="python">
+        ${__tool_directory__}/snr.py --input ${image} --output ${snr}
+    </command>
     <requirements>
-        <requirement type="package" version="25.1.0">black</requirement>
         <requirement type="package" version="8.1.8">click</requirement>
         <requirement type="package" version="0.4.6">colorama</requirement>
-        <requirement type="package" version="7.1.2">flake8</requirement>
         <requirement type="package" version="0.7.0">mccabe</requirement>
-        <requirement type="package" version="1.0.0">mypy-extensions</requirement>
         <requirement type="package" version="2.2.3">numpy</requirement>
         <requirement type="package" version="24.2">packaging</requirement>
         <requirement type="package" version="0.12.1">pathspec</requirement>
@@ -22,7 +22,7 @@
         <requirement type="package" version="6.8.0.2">shiboken6</requirement>
     </requirements>
     <inputs>
-        <param name="image" type="data" format="image" label="Image" help="The image to calculate the SNR" />
+        <param name="dcm" type="data_collection" label="DCM collection" help="The image to calculate the SNR" />
     </inputs>
     <outputs>
         <data name="snr" format="txt" />
