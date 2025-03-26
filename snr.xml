@@ -3,7 +3,7 @@
         Tool designed to calculate the Signal-to-Noise Ratio (SNR) for medical images
     </description>
     <command interpreter="python">
-        ${__tool_directory__}/snr.py --input ${image} --output ${snr}
+        ${__tool_directory__}/snr.py --input ${dcm} --output ${snr}
     </command>
     <requirements>
         <requirement type="package" version="8.1.8">click</requirement>
