@@ -6,25 +6,13 @@
         ${__tool_directory__}/snr.py --input ${dcm} --output ${snr}
     </command>
     <requirements>
-        <requirement type="package" version="8.1.8">click</requirement>
-        <requirement type="package" version="0.4.6">colorama</requirement>
-        <requirement type="package" version="0.7.0">mccabe</requirement>
         <requirement type="package" version="2.2.3">numpy</requirement>
-        <requirement type="package" version="24.2">packaging</requirement>
-        <requirement type="package" version="0.12.1">pathspec</requirement>
-        <requirement type="package" version="4.3.6">platformdirs</requirement>
-        <requirement type="package" version="2.12.1">pycodestyle</requirement>
         <requirement type="package" version="3.0.1">pydicom</requirement>
-        <requirement type="package" version="3.2.0">pyflakes</requirement>
-        <requirement type="package" version="6.8.0.2">PySide6</requirement>
-        <requirement type="package" version="6.8.0.2">PySide6_Addons</requirement>
-        <requirement type="package" version="6.8.0.2">PySide6_Essentials</requirement>
-        <requirement type="package" version="6.8.0.2">shiboken6</requirement>
     </requirements>
     <inputs>
-        <param name="dcm" type="data" label="DCM collection" help="The image to calculate the SNR" />
+        <param name="dcm" type="data" multiple="true" label="DCM collection" help="The image to calculate the SNR" />
     </inputs>
     <outputs>
-        <data name="snr" format="txt" />
+        <data name="snr" format="txt" from_work_dir="outfile.txt" label="${tool.name} on ${on_string}: outfile.txt"/>
     </outputs>
 </tool>

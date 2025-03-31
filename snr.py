@@ -29,10 +29,17 @@ def get_dicom_files(path_input_folder: str) -> List[str]:
         for file in files
         if file.lower().endswith(".dcm")
     ]
+    
+    all_files = [
+        os.path.normpath(os.path.join(root, file))
+        for root, _, files in os.walk(path_input_folder)
+        for file in files
+    ]
+
 
     if not dicom_files:
         raise FileNotFoundError(
-            f"No DICOM files (.dcm) found in '{path_input_folder}'."
+            f"No DICOM files (.dcm) found in '{path_input_folder}'. . Ony '{" ".join(all_files)}'"
         )
     return dicom_files
 
@@ -154,7 +161,7 @@ def calculate_snr(
 
 def save_snr_txt(
     snr: float,
-    path_output_folder: str,
+    output_file: str,
     series_number: str,
     format_file: str,
 ) -> None:
@@ -173,18 +180,18 @@ def save_snr_txt(
         Format of the file
 
     """
-    if not os.path.exists(path_output_folder):
-        raise FileNotFoundError(f"Folder '{path_output_folder}' does not exist.")
+    # if not os.path.exists(path_output_folder):
+    #     raise FileNotFoundError(f"Folder '{path_output_folder}' does not exist.")
 
-    output_path = os.path.join(
-        path_output_folder, f"snr_scan_{series_number}.{format_file}"
-    )
+    # output_path = os.path.join(
+    #     path_output_folder, f"snr_scan_{series_number}.{format_file}"
+    # )
 
     string_to_write = f"SNR for scan {series_number}: {snr}."
     if snr == float("inf"):
         string_to_write += " The signal is present but the noise is zero. "
 
-    with open(output_path, "w") as file:
+    with open(output_file, "w") as file:
         file.write(string_to_write)
 
 
@@ -202,25 +209,33 @@ def main():
     parser.add_argument("--kernel_size", type=int, default=80, help="Kernel size for SNR calculation.")
     args = parser.parse_args()
 
-    path_input_folder = args.input
+    path_input_files = args.input
     path_output_folder = args.output
     kernel_size = args.kernel_size
+    
+    if "," in path_input_files:
+        path_input_files = path_input_files.split(",")
+    
+    # raise ValueError(
+    #     f"Invalid input folder '{path_input_files}'. Please provide a valid path. '{type((path_input_files))}'"
+    # )
 
-    try:
-        # Get a list of dicom files contained in XNAT input folder
-        list_input_dicom = get_dicom_files(path_input_folder)
-        print(
-            f"Found {len(list_input_dicom)} DICOM files in '{path_input_folder}':\n"
-            + "\n".join(f"'{file}'" for file in list_input_dicom)
-        )
+    try:    
+        # # Get a list of dicom files contained in XNAT input folder
+        # list_input_dicom = get_dicom_files(path_input_folder)
+        # print(
+        #     f"Found {len(list_input_dicom)} DICOM files in '{path_input_folder}':\n"
+        #     + "\n".join(f"'{file}'" for file in list_input_dicom)
+        # )
 
         # Verify that the DICOM files in the XNAT input folder are valid
         # and reorder them based on the Instance Number.
-        list_input_dicom_sorted = check_order_dicom(list_input_dicom)
-        print(
-            "DICOM files sorted by InstanceNumber:\n"
-            + "\n".join(f"'{file}'" for file in list_input_dicom_sorted)
-        )
+        # list_input_dicom_sorted = check_order_dicom(list_input_dicom)
+        # print(
+        #     "DICOM files sorted by InstanceNumber:\n"
+        #     + "\n".join(f"'{file}'" for file in list_input_dicom_sorted)
+        # )
+        list_input_dicom_sorted = path_input_files
 
         # Calculate SNR
         ref_ds = pydicom.dcmread(list_input_dicom_sorted[0])
